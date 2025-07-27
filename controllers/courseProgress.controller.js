@@ -9,6 +9,18 @@ import { AppError } from "../middleware/error.middleware.js";
  */
 export const getUserCourseProgress = catchAsync(async (req, res) => {
   // TODO: Implement get user's course progress functionality
+  const {courseId} = req.params;
+  const userId = req.user._id;
+  const progress = await CourseProgress.findOne({course: courseId, user: userId});
+  if (!progress) {
+    return next(new AppError("No progress found", 404));
+  }
+  res.status(200).json({
+    status: "success",
+    data: {
+      progress,
+    },
+  });
 });
 
 /**
@@ -17,6 +29,23 @@ export const getUserCourseProgress = catchAsync(async (req, res) => {
  */
 export const updateLectureProgress = catchAsync(async (req, res) => {
   // TODO: Implement update lecture progress functionality
+  const {courseId, lectureId} = req.params;
+  const userId = req.user._id;
+  const {completed} = req.body;
+  const progress = await CourseProgress.findOneAndUpdate(
+    {course: courseId, user: userId, "lectures.lecture": lectureId},
+    {$set: {"lectures.$.completed": completed}},
+    {new: true, upsert: true}
+  );
+  if (!progress) {
+    return next(new AppError("Progress not found", 404));
+  }
+  res.status(200).json({
+    status: "success",
+    data: {
+      progress,
+    },
+  });
 });
 
 /**
@@ -25,6 +54,22 @@ export const updateLectureProgress = catchAsync(async (req, res) => {
  */
 export const markCourseAsCompleted = catchAsync(async (req, res) => {
   // TODO: Implement mark course as completed functionality
+  const {courseId} = req.params;
+  const userId = req.user._id;
+  const progress = await CourseProgress.findOneAndUpdate(
+    {course: courseId, user: userId},
+    {$set: {completed: true}},
+    {new: true, upsert: true}
+  );
+  if (!progress) {
+    return next(new AppError("Progress not found", 404));
+  }
+  res.status(200).json({
+    status: "success",
+    data: {
+      progress,
+    },
+  });
 });
 
 /**
@@ -33,4 +78,20 @@ export const markCourseAsCompleted = catchAsync(async (req, res) => {
  */
 export const resetCourseProgress = catchAsync(async (req, res) => {
   // TODO: Implement reset course progress functionality
+  const {courseId} = req.params;
+  const userId = req.user._id;
+  const progress = await CourseProgress.findOneAndUpdate(
+    {course: courseId, user: userId},
+    {$set: {completed: false, lectures: []}},
+    {new: true, upsert: true}
+  );
+  if (!progress) {
+    return next(new AppError("Progress not found", 404));
+  }
+  res.status(200).json({
+    status: "success",
+    data: {
+      progress,
+    },
+  });
 });
