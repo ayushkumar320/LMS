@@ -70,8 +70,8 @@ const userSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
+    toJSON: {virtuals: true},
+    toObject: {virtuals: true},
   }
 );
 
@@ -108,7 +108,7 @@ userSchema.virtual("totalEnrolledCourses").get(function () {
 // Update lastActive timestamp
 userSchema.methods.updateLastActive = function () {
   this.lastActive = Date.now();
-  return this.save({ validateBeforeSave: false });
+  return this.save({validateBeforeSave: false});
 };
 
 export const User = mongoose.model("User", userSchema);

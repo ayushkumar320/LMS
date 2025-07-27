@@ -11,6 +11,7 @@ import { AppError } from "../middleware/error.middleware.js";
  */
 export const createNewCourse = catchAsync(async (req, res) => {
   // TODO: Implement create new course functionality
+  
 });
 
 /**
