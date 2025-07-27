@@ -1,5 +1,5 @@
 import express from "express";
-import { isAuthenticated, restrictTo } from "../middleware/auth.middleware.js";
+import {isAuthenticated, restrictTo} from "../middleware/auth.middleware.js";
 import {
   createNewCourse,
   searchCourses,

@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
-import { AppError } from "./error.middleware.js";
-import { catchAsync } from "./error.middleware.js";
-import { User } from "../models/user.model.js";
+import {AppError} from "./error.middleware.js";
+import {catchAsync} from "./error.middleware.js";
+import {User} from "../models/user.model.js";
 
 export const isAuthenticated = catchAsync(async (req, res, next) => {
   // Check if token exists in cookies

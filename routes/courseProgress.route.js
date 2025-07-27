@@ -1,10 +1,10 @@
-import express from "express"
-import { isAuthenticated } from "../middleware/auth.middleware.js";
+import express from "express";
+import {isAuthenticated} from "../middleware/auth.middleware.js";
 import {
-    getUserCourseProgress,
-    updateLectureProgress,
-    markCourseAsCompleted,
-    resetCourseProgress
+  getUserCourseProgress,
+  updateLectureProgress,
+  markCourseAsCompleted,
+  resetCourseProgress,
 } from "../controllers/courseProgress.controller.js";
 
 const router = express.Router();
@@ -13,7 +13,11 @@ const router = express.Router();
 router.get("/:courseId", isAuthenticated, getUserCourseProgress);
 
 // Update lecture progress
-router.patch("/:courseId/lectures/:lectureId", isAuthenticated, updateLectureProgress);
+router.patch(
+  "/:courseId/lectures/:lectureId",
+  isAuthenticated,
+  updateLectureProgress
+);
 
 // Mark course as completed
 router.patch("/:courseId/complete", isAuthenticated, markCourseAsCompleted);

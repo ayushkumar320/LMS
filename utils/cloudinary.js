@@ -1,4 +1,4 @@
-import { v2 as cloudinary } from "cloudinary";
+import {v2 as cloudinary} from "cloudinary";
 import dotenv from "dotenv";
 dotenv.config({});
 
@@ -27,11 +27,9 @@ export const deleteMediaFromCloudinary = async (publicId) => {
 };
 
 export const deleteVideoFromCloudinary = async (publicId) => {
-    try {
-        await cloudinary.uploader.destroy(publicId,{resource_type:"video"});
-    } catch (error) {
-        console.log(error);
-        
-    }
-}
-
+  try {
+    await cloudinary.uploader.destroy(publicId, {resource_type: "video"});
+  } catch (error) {
+    console.log(error);
+  }
+};
