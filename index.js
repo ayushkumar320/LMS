@@ -46,8 +46,8 @@ if (process.env.NODE_ENV === "development") {
 }
 
 // Body Parser Middleware
-app.use(express.json({ limit: "10kb" })); // Body limit is 10kb
-app.use(express.urlencoded({ extended: true, limit: "10kb" }));
+app.use(express.json({limit: "10kb"})); // Body limit is 10kb
+app.use(express.urlencoded({extended: true, limit: "10kb"}));
 app.use(cookieParser());
 
 // CORS Configuration
@@ -91,7 +91,7 @@ app.use((err, req, res, next) => {
   return res.status(err.statusCode || 500).json({
     status: "error",
     message: err.message || "Internal server error",
-    ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+    ...(process.env.NODE_ENV === "development" && {stack: err.stack}),
   });
 });
 
